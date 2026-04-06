@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Capital Health Awards Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0A1628;--navy2:#102040;--navy3:#1B3060;
+  --gold:#C9A84C;--gold2:#E8D5A0;--gold3:#8B6914;
+  --sky:#A8C8E8;--ice:#D6E8F5;--mid:#5B9BD5;
+  --white:#FFFFFF;--off:#F5F8FC;--gray:#6B7280;--dark:#2D3748;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,22,40,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold3));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-logo-text{color:var(--white);font-family:'Playfair Display',serif;font-size:15px;font-weight:600;line-height:1.2}
+.nav-logo-sub{color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:'Inter',sans-serif;font-weight:400}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:13px;letter-spacing:0.5px;transition:color 0.2s;cursor:pointer}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--navy);padding:10px 22px;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;border:none;letter-spacing:0.5px;transition:all 0.2s}
+.nav-cta:hover{background:var(--gold2);transform:translateY(-1px)}
+
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:72px}
+.page.active{display:block}
+
+/* ── HERO ── */
+.hero{min-height:100vh;background:var(--navy);position:relative;display:flex;align-items:center;overflow:hidden;padding-top:72px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(91,155,213,0.12) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(201,168,76,0.08) 0%,transparent 50%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:60px 60px}
+.hero-content{max-width:1280px;margin:0 auto;padding:6rem 2rem 4rem;position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:var(--gold);padding:6px 16px;border-radius:100px;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:2rem}
+.hero-tag-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+h1.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,5rem);color:var(--white);line-height:1.1;margin-bottom:1.5rem;max-width:750px}
+h1.hero-title span{color:var(--gold)}
+.hero-sub{font-size:1.15rem;color:rgba(255,255,255,0.65);max-width:600px;line-height:1.8;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem}
+.btn-primary{background:var(--gold);color:var(--navy);padding:14px 32px;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;border:none;letter-spacing:0.5px;transition:all 0.2s}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--white);padding:14px 32px;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,0.3);letter-spacing:0.5px;transition:all 0.2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* COUNTDOWN */
+.countdown-bar{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:600px}
+.cd-unit{text-align:center}
+.cd-num{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gold);font-weight:700;line-height:1}
+.cd-label{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.cd-sep{color:var(--gold);font-size:2rem;align-self:center;opacity:0.4;display:flex;align-items:center;justify-content:center}
+
+/* STATS ROW */
+.stats-row{background:rgba(201,168,76,0.08);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);padding:2rem 0}
+.stats-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-weight:700}
+.stat-label{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;letter-spacing:0.5px}
+
+/* SECTIONS */
+.section{padding:6rem 0}
+.section-inner{max-width:1280px;margin:0 auto;padding:0 2rem}
+.section-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:0.75rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);color:var(--navy);line-height:1.2;margin-bottom:1rem}
+.section-sub{font-size:1.05rem;color:var(--gray);line-height:1.8;max-width:640px}
+.section-white{background:var(--white)}
+.section-off{background:var(--off)}
+.section-navy{background:var(--navy)}
+.section-navy .section-title{color:var(--white)}
+.section-navy .section-sub{color:rgba(255,255,255,0.55)}
+.section-navy .section-tag{color:var(--gold)}
+
+/* CATEGORIES GRID */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.cat-card{background:var(--white);border:1px solid #E5EAF0;border-radius:12px;padding:2rem;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--mid));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.cat-card:hover{border-color:rgba(201,168,76,0.4);transform:translateY(-4px);box-shadow:0 20px 40px rgba(10,22,40,0.08)}
+.cat-card:hover::before{transform:scaleX(1)}
+.cat-icon{width:52px;height:52px;background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(91,155,213,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:1.25rem}
+.cat-name{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy);margin-bottom:0.75rem;font-weight:600}
+.cat-desc{font-size:13.5px;color:var(--gray);line-height:1.7}
+
+/* COMMITTEE GRID */
+.committee-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;margin-top:3rem}
+.member-card{background:var(--white);border:1px solid #E5EAF0;border-radius:12px;padding:1.75rem;text-align:center;transition:all 0.3s}
+.member-card:hover{border-color:rgba(201,168,76,0.3);transform:translateY(-4px);box-shadow:0 16px 32px rgba(10,22,40,0.07)}
+.member-avatar{width:88px;height:88px;border-radius:50%;margin:0 auto 1rem;background:linear-gradient(135deg,var(--navy2),var(--navy3));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);border:3px solid rgba(201,168,76,0.3)}
+.member-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);margin-bottom:0.3rem;font-weight:600}
+.member-title{font-size:12.5px;color:var(--gold);font-weight:500;margin-bottom:0.5rem;letter-spacing:0.3px}
+.member-inst{font-size:12px;color:var(--gray)}
+
+/* SPONSORS */
+.sponsors-row{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;margin-top:3rem;align-items:center}
+.sponsor-box{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:1.25rem 2rem;min-width:160px;text-align:center}
+.sponsor-name{color:rgba(255,255,255,0.5);font-size:13px;letter-spacing:1px;font-weight:500}
+.partner-cta{margin-top:3rem;text-align:center}
+
+/* PROCESS STEPS */
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2rem;margin-top:3rem}
+.step-card{text-align:center;padding:2rem 1.5rem}
+.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold3));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);font-weight:700;margin:0 auto 1.25rem}
+.step-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:0.75rem}
+.step-desc{font-size:13.5px;color:var(--gray);line-height:1.7}
+
+/* NOMINATION FORM */
+.nom-form{background:var(--white);border:1px solid #E5EAF0;border-radius:16px;padding:3rem;max-width:780px;margin:3rem auto 0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:600;color:var(--navy);letter-spacing:0.5px;text-transform:uppercase}
+.form-input,.form-select,.form-textarea{padding:12px 16px;border:1.5px solid #E5EAF0;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;transition:border-color 0.2s;outline:none;color:var(--dark)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
+.form-textarea{resize:vertical;min-height:120px}
+.form-upload{border:2px dashed #E5EAF0;border-radius:8px;padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.2s}
+.form-upload:hover{border-color:var(--gold)}
+.upload-icon{font-size:2rem;margin-bottom:0.5rem}
+.upload-text{font-size:13px;color:var(--gray)}
+.deadline-badge{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:var(--gold3);border-radius:8px;padding:1rem 1.5rem;display:flex;align-items:center;gap:12px;margin-bottom:2rem;font-size:14px;font-weight:500}
+
+/* NEWS GRID */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:3rem}
+.news-card{border:1px solid #E5EAF0;border-radius:12px;overflow:hidden;transition:all 0.3s}
+.news-card:hover{box-shadow:0 16px 32px rgba(10,22,40,0.08);transform:translateY(-3px)}
+.news-img{height:180px;background:linear-gradient(135deg,var(--navy2),var(--navy3));display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.news-cat{position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:1px;text-transform:uppercase}
+.news-body{padding:1.5rem}
+.news-date{font-size:11px;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem}
+.news-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);margin-bottom:0.75rem;line-height:1.4}
+.news-excerpt{font-size:13px;color:var(--gray);line-height:1.6}
+.news-read{font-size:12px;color:var(--gold);font-weight:600;margin-top:1rem;cursor:pointer}
+
+/* EVENT */
+.event-hero{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:5rem 2rem;text-align:center;position:relative;overflow:hidden}
+.event-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,0.1) 0%,transparent 60%)}
+.event-details{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem;margin-top:3rem}
+.detail-card{background:var(--navy2);border:1px solid rgba(201,168,76,0.15);border-radius:12px;padding:2rem;text-align:center}
+.detail-icon{font-size:2.5rem;margin-bottom:1rem}
+.detail-label{font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem}
+.detail-val{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--white)}
+.detail-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px}
+
+/* ABOUT PAGE */
+.about-hero{background:var(--navy);padding:5rem 2rem;position:relative;overflow:hidden}
+.about-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(201,168,76,0.08) 0%,transparent 60%)}
+.timeline{margin-top:3rem;position:relative}
+.timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,0.1))}
+.tl-item{display:flex;gap:2rem;margin-bottom:3rem}
+.tl-dot{width:56px;height:56px;background:linear-gradient(135deg,var(--gold),var(--gold3));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem;font-weight:700;color:var(--navy);font-family:'Playfair Display',serif}
+.tl-content h3{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.1rem;margin-bottom:0.5rem}
+.tl-content p{font-size:14px;color:var(--gray);line-height:1.7}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;margin-top:3rem}
+.contact-info{display:flex;flex-direction:column;gap:1.5rem}
+.contact-item{display:flex;gap:1rem;align-items:flex-start}
+.contact-icon{width:44px;height:44px;background:rgba(201,168,76,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.contact-label{font-size:11px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;font-weight:600;margin-bottom:4px}
+.contact-val{font-size:14px;color:var(--dark);line-height:1.6}
+.social-links{display:flex;gap:0.75rem;margin-top:2rem}
+.social-btn{width:40px;height:40px;border:1px solid #E5EAF0;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;font-size:1rem;text-decoration:none}
+.social-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid rgba(201,168,76,0.15);padding:4rem 0 2rem}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand p{color:rgba(255,255,255,0.5);font-size:13.5px;line-height:1.8;margin-top:1rem;max-width:280px}
+.footer-col h4{color:var(--white);font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.footer-links a{color:rgba(255,255,255,0.45);font-size:13px;text-decoration:none;cursor:pointer;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.3)}
+.gold-bar{width:40px;height:3px;background:linear-gradient(90deg,var(--gold),var(--mid));border-radius:2px;margin-bottom:1rem}
+
+/* HALL OF FAME */
+.hof-card{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:1px solid rgba(201,168,76,0.2);border-radius:16px;padding:3rem;text-align:center;max-width:500px;margin:3rem auto 0}
+.hof-trophy{font-size:5rem;margin-bottom:1.5rem}
+.hof-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--white);margin-bottom:1rem}
+.hof-sub{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7}
+
+/* VIDEO SECTION */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.video-card{border-radius:12px;overflow:hidden;position:relative;cursor:pointer;border:1px solid #E5EAF0}
+.video-thumb{height:180px;background:linear-gradient(135deg,var(--navy2),var(--navy3));display:flex;align-items:center;justify-content:center;position:relative}
+.video-play{width:56px;height:56px;background:rgba(201,168,76,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--navy);transition:all 0.2s}
+.video-card:hover .video-play{transform:scale(1.1);background:var(--gold)}
+.video-label{padding:1.25rem}
+.video-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:0.4rem}
+.video-meta{font-size:12px;color:var(--gray)}
+
+/* UTIL */
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.3),transparent);margin:2rem 0}
+.text-center{text-align:center}
+.mt-1{margin-top:1rem}.mt-2{margin-top:2rem}.mt-3{margin-top:3rem}
+.mb-2{margin-bottom:2rem}
+
+/* ALERT */
+.success-alert{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#065f46;border-radius:8px;padding:1rem 1.5rem;margin-top:1rem;display:none;font-size:14px}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .countdown-bar{max-width:100%}
+  .about-grid{grid-template-columns:1fr !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')" style="cursor:pointer">
+      <div class="nav-logo-icon">🏆</div>
+      <div>
+        <div class="nav-logo-text">The Capital Health Awards</div>
+        <div class="nav-logo-sub">Academy · Nigeria</div>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a onclick="showPage('about')">About</a></li>
+      <li><a onclick="showPage('categories')">Categories</a></li>
+      <li><a onclick="showPage('committee')">Committee</a></li>
+      <li><a onclick="showPage('process')">Process</a></li>
+      <li><a onclick="showPage('event')">Event</a></li>
+      <li><a onclick="showPage('media')">Media</a></li>
+      <li><a onclick="showPage('partners')">Partners</a></li>
+      <li><a onclick="showPage('contact')">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="showPage('nominate')">Nominate Now</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: HOME -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="hero-tag-dot"></span>
+        Nominations Open — December 3, 2026
+      </div>
+      <h1 class="hero-title">Recognising <span>Excellence</span> in Nigerian Healthcare</h1>
+      <p class="hero-sub">The Capital Health Awards celebrates the individuals and institutions whose dedication, innovation, and integrity are transforming healthcare across Nigeria — and shaping the future of the African continent.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('nominate')">Nominate Now</button>
+        <button class="btn-outline" onclick="showPage('categories')">View Categories</button>
+        <button class="btn-outline" onclick="showPage('committee')">Join the Committee</button>
+      </div>
+      <div style="margin-bottom:1rem;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase">Ceremony Countdown</div>
+      <div class="countdown-bar">
+        <div class="cd-unit"><div class="cd-num" id="cd-days">241</div><div class="cd-label">Days</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cd-hrs">--</div><div class="cd-label">Hours</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cd-min">--</div><div class="cd-label">Minutes</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cd-sec">--</div><div class="cd-label">Seconds</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row" style="background:var(--navy2)">
+    <div class="stats-inner">
+      <div><div class="stat-num">70+</div><div class="stat-label">Health Show Episodes</div></div>
+      <div><div class="stat-num">2nd</div><div class="stat-label">Annual Edition 2026</div></div>
+      <div><div class="stat-num">10</div><div class="stat-label">Award Recipients</div></div>
+      <div><div class="stat-num">36+</div><div class="stat-label">States Represented</div></div>
+    </div>
+  </div>
+
+  <!-- Categories Preview -->
+  <div class="section section-off">
+    <div class="section-inner">
+      <div class="section-tag">Award Categories</div>
+      <h2 class="section-title">Celebrating Every Dimension of Healthcare Excellence</h2>
+      <p class="section-sub">From frontline clinical practice to institutional innovation, the Capital Health Awards honours excellence across the full healthcare ecosystem.</p>
+      <div class="cats-grid">
+        <div class="cat-card"><div class="cat-icon">🩺</div><div class="cat-name">Excellence in Clinical Practice</div><div class="cat-desc">Recognising outstanding clinical skill, patient outcomes, and ethical practice at the highest standard.</div></div>
+        <div class="cat-card"><div class="cat-icon">💡</div><div class="cat-name">Healthcare Innovation Award</div><div class="cat-desc">For individuals or institutions introducing transformative solutions to healthcare delivery in Nigeria.</div></div>
+        <div class="cat-card"><div class="cat-icon">🌍</div><div class="cat-name">Public Health Leadership</div><div class="cat-desc">Honouring leaders whose work has measurably improved population health outcomes and community wellbeing.</div></div>
+        <div class="cat-card"><div class="cat-icon">⭐</div><div class="cat-name">Young Healthcare Professional</div><div class="cat-desc">Celebrating early-career professionals demonstrating exceptional promise, impact, and professional integrity.</div></div>
+        <div class="cat-card"><div class="cat-icon">🏛</div><div class="cat-name">Institutional Excellence</div><div class="cat-desc">For healthcare organisations demonstrating outstanding standards, governance, and measurable health system contribution.</div></div>
+        <div class="cat-card"><div class="cat-icon">👑</div><div class="cat-name">Lifetime Achievement</div><div class="cat-desc">The most prestigious recognition — a career of enduring contribution to Nigeria's healthcare sector.</div></div>
+      </div>
+      <div class="text-center mt-3"><button class="btn-primary" onclick="showPage('categories')">View All Categories</button></div>
+    </div>
+  </div>
+
+  <!-- Video Section -->
+  <div class="section section-navy">
+    <div class="section-inner">
+      <div class="section-tag">Media & Highlights</div>
+      <h2 class="section-title" style="color:var(--white)">Watch Our Story</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.55)">From The Health Show to the inaugural awards ceremony — see the journey that led to this institution.</p>
+      <div class="video-grid">
+        <div class="video-card" style="background:var(--navy2);border-color:rgba(201,168,76,0.15)">
+          <div class="video-thumb">
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-label" style="background:var(--navy2)">
+            <div class="video-title" style="color:var(--white)">Inaugural Awards Ceremony 2025</div>
+            <div class="video-meta" style="color:rgba(255,255,255,0.4)">December 19, 2025 · Highlight Reel</div>
+          </div>
+        </div>
+        <div class="video-card" style="background:var(--navy2);border-color:rgba(201,168,76,0.15)">
+          <div class="video-thumb">
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-label" style="background:var(--navy2)">
+            <div class="video-title" style="color:var(--white)">The Health Show — Season Overview</div>
+            <div class="video-meta" style="color:rgba(255,255,255,0.4)">NTA News 24 · 70+ Episodes</div>
+          </div>
+        </div>
+        <div class="video-card" style="background:var(--navy2);border-color:rgba(201,168,76,0.15)">
+          <div class="video-thumb" style="background:rgba(201,168,76,0.1);border:2px dashed rgba(201,168,76,0.3)">
+            <div style="text-align:center">
+              <div style="font-size:2rem;margin-bottom:0.5rem">📹</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.4)">Add Your Video Here</div>
+            </div>
+          </div>
+          <div class="video-label" style="background:var(--navy2)">
+            <div class="video-title" style="color:rgba(255,255,255,0.4)">Upload a reel or highlight</div>
+            <div class="video-meta" style="color:rgba(255,255,255,0.25)">See guide below for how to add</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Committee Preview -->
+  <div class="section section-white">
+    <div class="section-inner">
+      <div class="section-tag">Selection Committee</div>
+      <h2 class="section-title">Governed by Professionals of the Highest Integrity</h2>
+      <p class="section-sub">Our independent adjudication panel is drawn from Nigeria's most respected healthcare leaders, ensuring every award is merit-based and beyond reproach.</p>
+      <div class="committee-grid">
+        <div class="member-card"><div class="member-avatar">SE</div><div class="member-name">Salomey Eferemo</div><div class="member-title">Convener</div><div class="member-inst">Capital Health Awards Academy</div></div>
+        <div class="member-card"><div class="member-avatar">OA</div><div class="member-name">Dr. Oluwaseun Adebayo</div><div class="member-title">Public Health Specialist</div><div class="member-inst">University of Abuja Teaching Hospital</div></div>
+        <div class="member-card"><div class="member-avatar">FK</div><div class="member-name">Prof. Fatima Katsina</div><div class="member-title">Professor of Medicine</div><div class="member-inst">National Hospital Abuja</div></div>
+        <div class="member-card"><div class="member-avatar">CI</div><div class="member-name">Dr. Chukwuemeka Ike</div><div class="member-title">Healthcare Administrator</div><div class="member-inst">Federal Ministry of Health</div></div>
+      </div>
+      <div class="text-center mt-3"><button class="btn-primary" onclick="showPage('committee')">View Full Committee</button></div>
+    </div>
+  </div>
+
+  <!-- Partners -->
+  <div class="section section-navy">
+    <div class="section-inner text-center">
+      <div class="section-tag">Partners & Sponsors</div>
+      <h2 class="section-title" style="color:var(--white)">Backed by Nigeria's Leading Institutions</h2>
+      <div class="sponsors-row">
+        <div class="sponsor-box"><div class="sponsor-name">YOUR LOGO HERE</div></div>
+        <div class="sponsor-box"><div class="sponsor-name">YOUR LOGO HERE</div></div>
+        <div class="sponsor-box"><div class="sponsor-name">YOUR LOGO HERE</div></div>
+        <div class="sponsor-box"><div class="sponsor-name">YOUR LOGO HERE</div></div>
+      </div>
+      <div class="partner-cta">
+        <button class="btn-outline" onclick="showPage('partners')">Become a Partner →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Latest News -->
+  <div class="section section-off">
+    <div class="section-inner">
+      <div class="section-tag">Latest Updates</div>
+      <h2 class="section-title">News & Announcements</h2>
+      <div class="news-grid">
+        <div class="news-card"><div class="news-img"><span class="news-cat">Announcement</span>🏆</div><div class="news-body"><div class="news-date">March 2026</div><div class="news-title">2026 Capital Health Awards Nominations Now Open</div><div class="news-excerpt">We are pleased to announce the official opening of nominations for the 2026 edition of the Capital Health Awards.</div><div class="news-read" onclick="showPage('media')">Read more →</div></div></div>
+        <div class="news-card"><div class="news-img"><span class="news-cat">Press</span>📺</div><div class="news-body"><div class="news-date">January 2026</div><div class="news-title">The Health Show Records 70th Episode Milestone</div><div class="news-excerpt">Nigeria's foremost health advocacy broadcast programme reaches a significant milestone in national health education.</div><div class="news-read" onclick="showPage('media')">Read more →</div></div></div>
+        <div class="news-card"><div class="news-img"><span class="news-cat">Event</span>🎖</div><div class="news-body"><div class="news-date">December 2025</div><div class="news-title">Inaugural Capital Health Awards Held Successfully</div><div class="news-excerpt">The first-ever Capital Health Awards ceremony was held on December 19, 2025, marking a national milestone.</div><div class="news-read" onclick="showPage('media')">Read more →</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: ABOUT -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="about-hero" style="padding:0;background:none;position:relative;z-index:2">
+      <div class="section-inner" style="padding-top:4rem;padding-bottom:4rem">
+        <div class="section-tag" style="color:var(--gold)">About Us</div>
+        <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:var(--white);line-height:1.2;max-width:700px;margin-bottom:1.5rem">The Institution Behind the Awards</h1>
+        <p style="font-size:1.05rem;color:rgba(255,255,255,0.6);max-width:600px;line-height:1.8">The Capital Health Awards Academy is Nigeria's foremost platform for recognising excellence, integrity, and innovation in healthcare — born from over 70 episodes of public health advocacy.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-white">
+    <div class="section-inner">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start" class="about-grid">
+        <div>
+          <div class="gold-bar"></div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--navy);margin-bottom:1rem">Our Mission</h2>
+          <p style="color:var(--gray);line-height:1.9;margin-bottom:1.5rem">To institutionalise the formal recognition of healthcare excellence in Nigeria — ensuring that outstanding service, innovation, and integrity within the healthcare ecosystem are acknowledged through a credible, transparent, and nationally respected platform.</p>
+          <div class="gold-bar"></div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--navy);margin-bottom:1rem">Our Vision</h2>
+          <p style="color:var(--gray);line-height:1.9">To become the foremost platform for healthcare recognition and advocacy across Africa — a continental institution that elevates the standard of healthcare practice through sustained recognition, professional dialogue, and public engagement.</p>
+        </div>
+        <div>
+          <div style="background:var(--off);border-radius:16px;padding:2.5rem;border-left:4px solid var(--gold)">
+            <h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.25rem;margin-bottom:1rem">Why This Awards Exists</h3>
+            <p style="color:var(--gray);line-height:1.9;font-size:14.5px">Through over 70 episodes of The Health Show — broadcast weekly on NTA News 24 since September 2024 — our founding team engaged hundreds of healthcare professionals across Nigeria. What emerged consistently was a clear institutional gap: exceptional healthcare service was rarely formally acknowledged.</p>
+            <div class="divider"></div>
+            <p style="color:var(--gray);line-height:1.9;font-size:14.5px">Healthcare workers operate at the intersection of national productivity, social stability, and human dignity. Recognition serves as both affirmation and incentive — reinforcing standards while inspiring future generations. The Capital Health Awards exists to fill that gap permanently.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-off">
+    <div class="section-inner">
+      <div class="section-tag">Our Journey</div>
+      <h2 class="section-title">From Broadcast to Institution</h2>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">24</div><div class="tl-content"><h3>September 2024 — The Health Show Launches</h3><p>Nigeria's first dedicated weekly healthcare advocacy programme begins airing on NTA News 24 every Saturday, reaching audiences on DSTV, GOtv, Startimes and beyond.</p></div></div>
+        <div class="tl-item"><div class="tl-dot">25</div><div class="tl-content"><h3>2025 — 70+ Episodes & National Recognition</h3><p>The Health Show records over 70 milestone episodes, receives national press coverage, and begins attracting sponsorship and partnership interest from leading organisations.</p></div></div>
+        <div class="tl-item"><div class="tl-dot">🏆</div><div class="tl-content"><h3>December 2025 — Inaugural Awards Ceremony</h3><p>The first Capital Health Awards ceremony is held on December 19, 2025, demonstrating strong sector participation and establishing the credibility of the institution.</p></div></div>
+        <div class="tl-item"><div class="tl-dot">26</div><div class="tl-content"><h3>2026 — National Scale & Continental Vision</h3><p>The 2026 edition scales to full national reach with nominations across all regions of Nigeria, as the Academy pursues its continental vision for African healthcare recognition.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-navy">
+    <div class="section-inner text-center">
+      <div class="section-tag">Governance</div>
+      <h2 class="section-title" style="color:var(--white)">Built on Integrity</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.55);margin:0 auto 3rem">Our governance structure ensures complete independence between partnership activities and award selection — protecting the credibility that defines this institution.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem">
+        <div class="detail-card"><div class="detail-icon">⚖️</div><div class="detail-label">Adjudication</div><div class="detail-val">Fully Independent</div><div class="detail-sub">Zero sponsor influence on any selection</div></div>
+        <div class="detail-card"><div class="detail-icon">📋</div><div class="detail-label">Process</div><div class="detail-val">Documented & Verified</div><div class="detail-sub">All claims independently validated</div></div>
+        <div class="detail-card"><div class="detail-icon">🛡</div><div class="detail-label">Ethics</div><div class="detail-val">Zero Tolerance</div><div class="detail-sub">For conflicts of interest at any stage</div></div>
+        <div class="detail-card"><div class="detail-icon">📊</div><div class="detail-label">Accountability</div><div class="detail-val">Post-Cycle Reports</div><div class="detail-sub">Full evaluation after every edition</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: CATEGORIES -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-categories" class="page">
+  <div class="about-hero">
+    <div class="section-inner" style="padding-top:4rem;padding-bottom:4rem;position:relative;z-index:2">
+      <div class="section-tag" style="color:var(--gold)">Award Categories</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:var(--white);line-height:1.2;max-width:700px;margin-bottom:1.5rem">Seven Awards. One Standard. Nigeria's Best.</h1>
+    </div>
+  </div>
+  <div class="section section-white">
+    <div class="section-inner">
+      <div style="display:flex;flex-direction:column;gap:2rem">
+        <div style="background:var(--off);border-radius:16px;padding:2.5rem;border-left:5px solid var(--gold)"><div style="display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start"><div style="font-size:3rem">🩺</div><div><h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;margin-bottom:0.75rem">Excellence in Clinical Practice</h3><p style="color:var(--gray);line-height:1.8;font-size:14px;margin-bottom:1rem">For healthcare professionals who have demonstrated outstanding clinical skill, measurable patient outcomes, and unwavering ethical practice.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Eligibility</div><p style="font-size:13px;color:var(--gray)">Licensed medical practitioners with minimum 5 years clinical experience. Open to physicians, nurses, pharmacists, and allied health professionals.</p></div><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Evaluation Criteria</div><p style="font-size:13px;color:var(--gray)">Patient outcomes, peer recognition, ethical conduct, professional development, and community impact.</p></div></div></div></div></div>
+
+        <div style="background:var(--off);border-radius:16px;padding:2.5rem;border-left:5px solid var(--mid)"><div style="display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start"><div style="font-size:3rem">💡</div><div><h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;margin-bottom:0.75rem">Healthcare Innovation Award</h3><p style="color:var(--gray);line-height:1.8;font-size:14px;margin-bottom:1rem">Recognising individuals or institutions who have introduced transformative, evidence-based solutions to Nigeria's healthcare delivery challenges.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Eligibility</div><p style="font-size:13px;color:var(--gray)">Healthcare professionals, researchers, institutions, and health-tech innovators. Both individuals and organisations may apply.</p></div><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Evaluation Criteria</div><p style="font-size:13px;color:var(--gray)">Innovation scope, demonstrated impact, scalability, sustainability, and measurable improvement in healthcare access or outcomes.</p></div></div></div></div></div>
+
+        <div style="background:var(--off);border-radius:16px;padding:2.5rem;border-left:5px solid var(--sky)"><div style="display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start"><div style="font-size:3rem">🌍</div><div><h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;margin-bottom:0.75rem">Public Health Leadership Award</h3><p style="color:var(--gray);line-height:1.8;font-size:14px;margin-bottom:1rem">Honouring leaders whose policy work, community engagement, and public health advocacy has measurably improved population health outcomes in Nigeria.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Eligibility</div><p style="font-size:13px;color:var(--gray)">Public health officers, health policy advocates, community health leaders, and NGO health directors.</p></div><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Evaluation Criteria</div><p style="font-size:13px;color:var(--gray)">Population health impact, policy influence, leadership quality, community reach, and evidence of sustained outcomes.</p></div></div></div></div></div>
+
+        <div style="background:var(--off);border-radius:16px;padding:2.5rem;border-left:5px solid var(--gold)"><div style="display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start"><div style="font-size:3rem">⭐</div><div><h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;margin-bottom:0.75rem">Young Healthcare Professional Award</h3><p style="color:var(--gray);line-height:1.8;font-size:14px;margin-bottom:1rem">Celebrating early-career professionals (under 35) who have demonstrated exceptional impact, professional integrity, and transformative promise within their discipline.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Eligibility</div><p style="font-size:13px;color:var(--gray)">Licensed healthcare professionals under 35 years of age with a minimum of 2 years professional practice.</p></div><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Evaluation Criteria</div><p style="font-size:13px;color:var(--gray)">Early-career achievements, leadership potential, innovation, peer recognition, and commitment to professional development.</p></div></div></div></div></div>
+
+        <div style="background:var(--off);border-radius:16px;padding:2.5rem;border-left:5px solid var(--mid)"><div style="display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start"><div style="font-size:3rem">🏛</div><div><h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;margin-bottom:0.75rem">Institutional Excellence Award</h3><p style="color:var(--gray);line-height:1.8;font-size:14px;margin-bottom:1rem">For healthcare organisations and institutions demonstrating outstanding governance, measurable health outcomes, and sustained contribution to Nigeria's health system strengthening.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Eligibility</div><p style="font-size:13px;color:var(--gray)">Registered hospitals, clinics, NGOs, and healthcare organisations operating in Nigeria for a minimum of 3 years.</p></div><div><div style="font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem">Evaluation Criteria</div><p style="font-size:13px;color:var(--gray)">Quality of care, health outcomes, governance standards, community impact, and staff development record.</p></div></div></div></div></div>
+
+        <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:16px;padding:2.5rem;border-left:5px solid var(--gold)"><div style="display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start"><div style="font-size:3rem">👑</div><div><h3 style="font-family:'Playfair Display',serif;color:var(--white);font-size:1.3rem;margin-bottom:0.75rem">Lifetime Achievement Award</h3><p style="color:rgba(255,255,255,0.65);line-height:1.8;font-size:14px;margin-bottom:1rem">The most prestigious recognition the Capital Health Awards confers — honouring a career of enduring, transformative contribution to Nigeria's healthcare sector and national wellbeing.</p><div style="background:rgba(201,168,76,0.1);border-radius:8px;padding:1rem;border:1px solid rgba(201,168,76,0.2)"><p style="font-size:13px;color:rgba(255,255,255,0.65)">This award is not open to general nomination. Candidates are identified and selected solely by the independent adjudication panel based on documented career impact and national recognition.</p></div></div></div></div>
+      </div>
+      <div class="text-center mt-3"><button class="btn-primary" onclick="showPage('nominate')">Submit a Nomination</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: COMMITTEE -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-committee" class="page">
+  <div class="about-hero">
+    <div class="section-inner" style="padding-top:4rem;padding-bottom:4rem;position:relative;z-index:2">
+      <div class="section-tag" style="color:var(--gold)">Editorial Board & Selection Committee</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:var(--white);line-height:1.2;max-width:700px;margin-bottom:1.5rem">Governed by Nigeria's Most Respected Healthcare Leaders</h1>
+      <p style="font-size:1rem;color:rgba(255,255,255,0.55);max-width:600px;line-height:1.8">Every member of our selection committee was appointed for their professional excellence, institutional credibility, and unwavering commitment to ethical healthcare practice.</p>
+    </div>
+  </div>
+  <div class="section section-off">
+    <div class="section-inner">
+      <div class="committee-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+        <div class="member-card"><div class="member-avatar">SE</div><div class="member-name">Salomey Eferemo</div><div class="member-title">Convener</div><div class="member-inst">Capital Health Awards Academy</div><div class="divider"></div><p style="font-size:13px;color:var(--gray);line-height:1.6;margin-top:0.5rem">Founder of The Health Show and Convener of the Capital Health Awards Academy, with a distinguished record in health media and institutional advocacy.</p></div>
+        <div class="member-card"><div class="member-avatar">OA</div><div class="member-name">Dr. Oluwaseun Adebayo</div><div class="member-title">Public Health Specialist</div><div class="member-inst">University of Abuja Teaching Hospital</div><div class="divider"></div><p style="font-size:13px;color:var(--gray);line-height:1.6;margin-top:0.5rem">A leading public health expert with over 20 years of experience in community health advocacy, policy development, and health systems strengthening.</p></div>
+        <div class="member-card"><div class="member-avatar">FK</div><div class="member-name">Prof. Fatima Katsina</div><div class="member-title">Professor of Medicine</div><div class="member-inst">National Hospital Abuja</div><div class="divider"></div><p style="font-size:13px;color:var(--gray);line-height:1.6;margin-top:0.5rem">Professor of Internal Medicine and clinical researcher whose work on healthcare delivery in underserved communities has received national and international recognition.</p></div>
+        <div class="member-card"><div class="member-avatar">CI</div><div class="member-name">Dr. Chukwuemeka Ike</div><div class="member-title">Healthcare Administrator</div><div class="member-inst">Federal Ministry of Health</div><div class="divider"></div><p style="font-size:13px;color:var(--gray);line-height:1.6;margin-top:0.5rem">A senior healthcare administrator with expertise in hospital governance, quality assurance, and the development of national health policy frameworks.</p></div>
+        <div class="member-card"><div class="member-avatar">AN</div><div class="member-name">Adaeze Nwachukwu</div><div class="member-title">Pharmaceutical Sciences</div><div class="member-inst">Pharmaceutical Society of Nigeria</div><div class="divider"></div><p style="font-size:13px;color:var(--gray);line-height:1.6;margin-top:0.5rem">A leading figure in pharmaceutical practice and patient safety advocacy, with extensive contributions to regulatory excellence across Nigeria's healthcare sector.</p></div>
+        <div class="member-card" style="border:2px dashed #E5EAF0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:300px"><div style="font-size:3rem;margin-bottom:1rem;color:#E5EAF0">+</div><div style="font-size:14px;color:var(--gray)">Additional committee members will be announced ahead of the 2026 edition.</div></div>
+      </div>
+      <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:2rem;margin-top:3rem;text-align:center">
+        <h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:0.75rem">Join the Committee</h3>
+        <p style="font-size:14px;color:var(--gray);max-width:500px;margin:0 auto 1.5rem;line-height:1.7">We welcome expressions of interest from senior healthcare professionals who share our commitment to recognising excellence with integrity. Positions are voluntary and subject to editorial independence requirements.</p>
+        <button class="btn-primary" onclick="showPage('contact')">Express Interest</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: PROCESS -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-process" class="page">
+  <div class="about-hero">
+    <div class="section-inner" style="padding-top:4rem;padding-bottom:4rem;position:relative;z-index:2">
+      <div class="section-tag" style="color:var(--gold)">Selection Process</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:var(--white);line-height:1.2;max-width:700px;margin-bottom:1.5rem">A Rigorous, Transparent, and Independent Process</h1>
+    </div>
+  </div>
+  <div class="section section-white">
+    <div class="section-inner">
+      <div class="steps">
+        <div class="step-card" style="background:var(--off);border-radius:12px"><div class="step-num">1</div><div class="step-title">Nomination</div><div class="step-desc">Nationwide nominations open for 30 days in June. Clear eligibility criteria and structured submission templates ensure consistency and documentation integrity.</div></div>
+        <div class="step-card" style="background:var(--off);border-radius:12px"><div class="step-num">2</div><div class="step-title">Screening</div><div class="step-desc">All submissions are reviewed for completeness, eligibility, and documentation standards. Incomplete or ineligible nominations are respectfully declined.</div></div>
+        <div class="step-card" style="background:var(--off);border-radius:12px"><div class="step-num">3</div><div class="step-title">Evaluation</div><div class="step-desc">The independent adjudication panel assesses shortlisted nominations against published criteria — impact, ethics, service, and innovation — with complete independence from sponsors.</div></div>
+        <div class="step-card" style="background:var(--off);border-radius:12px"><div class="step-num">4</div><div class="step-title">Validation</div><div class="step-desc">Claims and credentials are verified through official channels. Background checks are completed and documented before any nomination is finalised.</div></div>
+        <div class="step-card" style="background:var(--off);border-radius:12px"><div class="step-num">5</div><div class="step-title">Final Selection</div><div class="step-desc">The adjudication panel convenes for final deliberation. Collective decision-making ensures no single reviewer's bias determines outcomes.</div></div>
+        <div class="step-card" style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:12px"><div class="step-num">6</div><div class="step-title" style="color:var(--white)">Celebration</div><div class="step-desc" style="color:rgba(255,255,255,0.6)">Recipients are honoured at the nationally broadcast Capital Health Awards ceremony in December — a moment of lasting professional recognition.</div></div>
+      </div>
+
+      <div style="margin-top:4rem;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:2.5rem">
+        <h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;margin-bottom:1rem">Ethics & Fairness Statement</h3>
+        <p style="color:var(--gray);line-height:1.9;font-size:14.5px;margin-bottom:1rem">The Capital Health Awards operates under a strict code of ethics that protects the integrity of every selection. No sponsor, partner, media organisation, or external stakeholder may influence any nomination or adjudication outcome. All panel members are required to declare and manage conflicts of interest.</p>
+        <p style="color:var(--gray);line-height:1.9;font-size:14.5px">Every award recipient is selected solely on the basis of documented evidence, peer recognition, and professional merit — assessed against clearly published criteria. The Academy is committed to full post-cycle evaluation reports that document process compliance and outcomes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: NOMINATE -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-nominate" class="page">
+  <div class="section section-navy" style="padding:4rem 0 2rem">
+    <div class="section-inner text-center">
+      <div class="section-tag">Submit a Nomination</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--white);margin-bottom:1rem">Nominate a Healthcare Hero</h1>
+      <p style="color:rgba(255,255,255,0.55);max-width:550px;margin:0 auto;line-height:1.8;font-size:1rem">Nominations for the 2026 Capital Health Awards are now open. Help us recognise the individuals and institutions who are transforming healthcare in Nigeria.</p>
+    </div>
+  </div>
+  <div class="section section-off">
+    <div class="section-inner">
+      <div class="deadline-badge"><span style="font-size:1.5rem">⏰</span><div><strong>Submission Deadline: 30th June, 2026</strong><br>Nominations close at midnight. Late submissions will not be accepted.</div></div>
+      <div class="nom-form">
+        <h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.4rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid #E5EAF0">Nomination Form — 2026 Capital Health Awards</h3>
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">Nominee Full Name *</label><input type="text" class="form-input" placeholder="Dr. Full Name"></div>
+          <div class="form-group"><label class="form-label">Nominee's Institution *</label><input type="text" class="form-input" placeholder="Hospital / Organisation"></div>
+          <div class="form-group"><label class="form-label">Award Category *</label><select class="form-select"><option value="">Select a category...</option><option>Excellence in Clinical Practice</option><option>Healthcare Innovation Award</option><option>Public Health Leadership Award</option><option>Young Healthcare Professional Award</option><option>Institutional Excellence Award</option></select></div>
+          <div class="form-group"><label class="form-label">Nominee's State *</label><select class="form-select"><option value="">Select state...</option><option>FCT — Abuja</option><option>Lagos</option><option>Rivers</option><option>Kano</option><option>Oyo</option><option>Other</option></select></div>
+          <div class="form-group"><label class="form-label">Nominator's Name *</label><input type="text" class="form-input" placeholder="Your full name"></div>
+          <div class="form-group"><label class="form-label">Nominator's Email *</label><input type="email" class="form-input" placeholder="your@email.com"></div>
+          <div class="form-group full"><label class="form-label">Justification for Nomination *</label><textarea class="form-textarea" style="min-height:160px" placeholder="Describe in detail why this individual or institution deserves this award. Include specific achievements, impact, and evidence of excellence (minimum 200 words)..."></textarea></div>
+          <div class="form-group full">
+            <label class="form-label">Supporting Documents</label>
+            <div class="form-upload">
+              <div class="upload-icon">📎</div>
+              <div class="upload-text"><strong>Click to upload</strong> or drag and drop<br><span style="font-size:12px;color:#9CA3AF">PDF, DOC, DOCX up to 10MB — CV, citations, letters of recommendation</span></div>
+            </div>
+          </div>
+          <div class="form-group full"><label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:13px;color:var(--gray);line-height:1.6"><input type="checkbox" style="margin-top:3px;flex-shrink:0"> I confirm that the information provided is accurate to the best of my knowledge, and I consent to the Capital Health Awards Academy using this information for the purposes of this nomination process.</label></div>
+        </div>
+        <div style="margin-top:2rem;text-align:center">
+          <button class="btn-primary" style="padding:16px 48px;font-size:15px" onclick="submitNom()">Submit Nomination</button>
+        </div>
+        <div class="success-alert" id="nom-success">✅ Thank you — your nomination has been received. We will acknowledge receipt within 3 business days.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: EVENT -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-event" class="page">
+  <div class="event-hero">
+    <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto">
+      <div class="section-tag" style="justify-content:center">The 2026 Ceremony</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,4rem);color:var(--white);margin:1rem 0">An Evening of National Recognition</h1>
+      <p style="color:rgba(255,255,255,0.6);font-size:1.1rem;max-width:500px;margin:0 auto">The 2026 Capital Health Awards Ceremony — a dignified, nationally broadcast gala celebrating Nigeria's finest healthcare professionals.</p>
+    </div>
+  </div>
+  <div class="section section-navy">
+    <div class="section-inner">
+      <div class="event-details">
+        <div class="detail-card"><div class="detail-icon">📅</div><div class="detail-label">Date</div><div class="detail-val">3rd December 2026</div><div class="detail-sub">Thursday Evening</div></div>
+        <div class="detail-card"><div class="detail-icon">📍</div><div class="detail-label">Location</div><div class="detail-val">Abuja, Nigeria</div><div class="detail-sub">Venue to be confirmed</div></div>
+        <div class="detail-card"><div class="detail-icon">👔</div><div class="detail-label">Dress Code</div><div class="detail-val">Black Tie / National</div><div class="detail-sub">Formal evening attire</div></div>
+        <div class="detail-card"><div class="detail-icon">📺</div><div class="detail-label">Broadcast</div><div class="detail-val">National Television</div><div class="detail-sub">NTA News 24 & platforms</div></div>
+      </div>
+
+      <div style="margin-top:4rem">
+        <div class="section-tag">Programme Highlights</div>
+        <h2 class="section-title" style="color:var(--white);margin-bottom:2rem">Evening Programme</h2>
+        <div style="display:flex;flex-direction:column;gap:0;border:1px solid rgba(201,168,76,0.15);border-radius:12px;overflow:hidden">
+          <div style="display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid rgba(255,255,255,0.06)"><div style="background:rgba(201,168,76,0.08);padding:1.25rem;font-size:13px;color:var(--gold);font-weight:600;border-right:1px solid rgba(201,168,76,0.1)">6:00 PM</div><div style="padding:1.25rem;font-size:14px;color:rgba(255,255,255,0.75)">Arrival, Registration & Cocktail Reception</div></div>
+          <div style="display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid rgba(255,255,255,0.06)"><div style="background:rgba(201,168,76,0.08);padding:1.25rem;font-size:13px;color:var(--gold);font-weight:600;border-right:1px solid rgba(201,168,76,0.1)">7:00 PM</div><div style="padding:1.25rem;font-size:14px;color:rgba(255,255,255,0.75)">Opening Address — Convener, Capital Health Awards Academy</div></div>
+          <div style="display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid rgba(255,255,255,0.06)"><div style="background:rgba(201,168,76,0.08);padding:1.25rem;font-size:13px;color:var(--gold);font-weight:600;border-right:1px solid rgba(201,168,76,0.1)">7:20 PM</div><div style="padding:1.25rem;font-size:14px;color:rgba(255,255,255,0.75)">Keynote Address — Special Guest Speaker</div></div>
+          <div style="display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid rgba(255,255,255,0.06)"><div style="background:rgba(201,168,76,0.08);padding:1.25rem;font-size:13px;color:var(--gold);font-weight:600;border-right:1px solid rgba(201,168,76,0.1)">7:45 PM</div><div style="padding:1.25rem;font-size:14px;color:rgba(255,255,255,0.75)">Dinner Service</div></div>
+          <div style="display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid rgba(255,255,255,0.06)"><div style="background:rgba(201,168,76,0.08);padding:1.25rem;font-size:13px;color:var(--gold);font-weight:600;border-right:1px solid rgba(201,168,76,0.1)">8:30 PM</div><div style="padding:1.25rem;font-size:14px;color:rgba(255,255,255,0.75)">🏆 Award Presentations — 7 Individual Categories</div></div>
+          <div style="display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid rgba(255,255,255,0.06)"><div style="background:rgba(201,168,76,0.08);padding:1.25rem;font-size:13px;color:var(--gold);font-weight:600;border-right:1px solid rgba(201,168,76,0.1)">9:30 PM</div><div style="padding:1.25rem;font-size:14px;color:rgba(255,255,255,0.75)">🏆 Institutional Awards — 3 Organisation Categories</div></div>
+          <div style="display:grid;grid-template-columns:160px 1fr"><div style="background:rgba(201,168,76,0.12);padding:1.25rem;font-size:13px;color:var(--gold);font-weight:700;border-right:1px solid rgba(201,168,76,0.2)">10:00 PM</div><div style="padding:1.25rem;font-size:14px;color:rgba(255,255,255,0.75);font-weight:500">👑 Lifetime Achievement Award & Closing Remarks</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: PARTNERS -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-partners" class="page">
+  <div class="about-hero">
+    <div class="section-inner" style="padding-top:4rem;padding-bottom:4rem;position:relative;z-index:2">
+      <div class="section-tag" style="color:var(--gold)">Partners & Sponsors</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:var(--white);line-height:1.2;max-width:700px;margin-bottom:1.5rem">Become Part of Nigeria's Healthcare Legacy</h1>
+    </div>
+  </div>
+  <div class="section section-white">
+    <div class="section-inner">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-bottom:4rem" class="about-grid">
+        <div><h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.8rem;margin-bottom:1rem">Why Partner With Us?</h2><p style="color:var(--gray);line-height:1.9;margin-bottom:1rem">The Capital Health Awards delivers sustained, multi-channel visibility across Nigeria's most trusted media platforms — not just on one night, but throughout an entire year-long awards cycle backed by The Health Show on NTA News 24, DSTV, GOtv and Startimes.</p><p style="color:var(--gray);line-height:1.9">Partnership positions your organisation as a champion of healthcare excellence, builds authentic community trust, and delivers meaningful CSR alignment with national health priorities.</p></div>
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <div style="display:flex;gap:1rem;align-items:center;padding:1rem;background:var(--off);border-radius:8px;border-left:3px solid var(--gold)"><span style="font-size:1.5rem">📺</span><div><strong style="font-size:14px;color:var(--navy)">National Television Reach</strong><p style="font-size:13px;color:var(--gray);margin-top:2px">NTA News 24 · DSTV · GOtv · Startimes</p></div></div>
+          <div style="display:flex;gap:1rem;align-items:center;padding:1rem;background:var(--off);border-radius:8px;border-left:3px solid var(--mid)"><span style="font-size:1.5rem">📰</span><div><strong style="font-size:14px;color:var(--navy)">National Press Coverage</strong><p style="font-size:13px;color:var(--gray);margin-top:2px">Vanguard · Leadership · ThisDay · NTA News</p></div></div>
+          <div style="display:flex;gap:1rem;align-items:center;padding:1rem;background:var(--off);border-radius:8px;border-left:3px solid var(--sky)"><span style="font-size:1.5rem">🤝</span><div><strong style="font-size:14px;color:var(--navy)">Executive Thought Leadership</strong><p style="font-size:13px;color:var(--gray);margin-top:2px">Keynote addresses · fireside conversations · VIP networking</p></div></div>
+        </div>
+      </div>
+
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.8rem;margin-bottom:2rem">Sponsorship Tiers</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem">
+        <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:12px;padding:2rem;border-top:4px solid var(--gold)"><div style="font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:0.5rem">Title Sponsor</div><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--white);margin-bottom:0.5rem">₦350M</div><p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7">Exclusive naming rights. Full media integration across all awards communications, 12 Health Show episodes, keynote address, VIP protocol.</p></div>
+        <div style="background:var(--off);border-radius:12px;padding:2rem;border-top:4px solid var(--mid)"><div style="font-size:11px;color:var(--mid);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:0.5rem">Platinum Sponsor</div><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem">₦200M</div><p style="font-size:13px;color:var(--gray);line-height:1.7">Premium brand visibility across event staging, national media engagement, ceremony recognition, and VIP stakeholder access.</p></div>
+        <div style="background:var(--off);border-radius:12px;padding:2rem;border-top:4px solid var(--gold)"><div style="font-size:11px;color:var(--gold3);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:0.5rem">Gold Sponsor</div><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem">₦150M</div><p style="font-size:13px;color:var(--gray);line-height:1.7">Brand placement in ceremony venue, media mentions, VIP networking access and event acknowledgement.</p></div>
+        <div style="background:var(--off);border-radius:12px;padding:2rem;border-top:4px solid #9CA3AF"><div style="font-size:11px;color:#6B7280;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:0.5rem">Silver / Bronze</div><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem">₦35M+</div><p style="font-size:13px;color:var(--gray);line-height:1.7">Recognition in event materials, ceremony acknowledgement and stakeholder participation.</p></div>
+      </div>
+      <div class="text-center mt-3"><button class="btn-primary" onclick="showPage('contact')">Request a Partnership Proposal</button></div>
+
+      <div style="margin-top:5rem"><h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.5rem;margin-bottom:2rem;text-align:center">Current Partners</h2>
+      <div class="sponsors-row" style="justify-content:center">
+        <div class="sponsor-box" style="background:var(--off);border-color:#E5EAF0"><div class="sponsor-name" style="color:var(--gray)">YOUR LOGO HERE</div></div>
+        <div class="sponsor-box" style="background:var(--off);border-color:#E5EAF0"><div class="sponsor-name" style="color:var(--gray)">YOUR LOGO HERE</div></div>
+        <div class="sponsor-box" style="background:var(--off);border-color:#E5EAF0"><div class="sponsor-name" style="color:var(--gray)">YOUR LOGO HERE</div></div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: MEDIA -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-media" class="page">
+  <div class="about-hero">
+    <div class="section-inner" style="padding-top:4rem;padding-bottom:4rem;position:relative;z-index:2">
+      <div class="section-tag" style="color:var(--gold)">News & Media</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:var(--white);line-height:1.2;margin-bottom:1.5rem">Latest Announcements & Press</h1>
+    </div>
+  </div>
+  <div class="section section-white">
+    <div class="section-inner">
+      <div class="news-grid">
+        <div class="news-card"><div class="news-img" style="background:linear-gradient(135deg,#1B3060,#0A1628)"><span class="news-cat">Announcement</span><span style="font-size:3rem">🏆</span></div><div class="news-body"><div class="news-date">March 2026</div><div class="news-title">2026 Capital Health Awards Nominations Now Open</div><div class="news-excerpt">The Capital Health Awards Academy is pleased to announce the official opening of nominations for the 2026 edition. Healthcare professionals across all regions of Nigeria are invited to submit nominations before June 30, 2026.</div></div></div>
+        <div class="news-card"><div class="news-img" style="background:linear-gradient(135deg,#102040,#1B3060)"><span class="news-cat">Milestone</span><span style="font-size:3rem">📺</span></div><div class="news-body"><div class="news-date">January 2026</div><div class="news-title">The Health Show Records 70th Episode Milestone</div><div class="news-excerpt">Nigeria's foremost healthcare advocacy broadcast programme celebrates 70 consecutive weekly episodes on NTA News 24 — an unbroken record of public health education since September 2024.</div></div></div>
+        <div class="news-card"><div class="news-img" style="background:linear-gradient(135deg,#0A1628,#102040)"><span class="news-cat">Press Release</span><span style="font-size:3rem">📰</span></div><div class="news-body"><div class="news-date">December 2025</div><div class="news-title">Inaugural Capital Health Awards Held Successfully in Abuja</div><div class="news-excerpt">The first-ever Capital Health Awards ceremony was held on December 19, 2025, marking a landmark moment for healthcare recognition in Nigeria. The event was attended by senior healthcare professionals, institutions, and stakeholders from across the country.</div></div></div>
+        <div class="news-card"><div class="news-img" style="background:linear-gradient(135deg,#1B3060,#0A1628)"><span class="news-cat">Media</span><span style="font-size:3rem">🌍</span></div><div class="news-body"><div class="news-date">November 2025</div><div class="news-title">Capital Health Awards Featured in Vanguard and Leadership Newspaper</div><div class="news-excerpt">The initiative received editorial coverage across multiple national publications ahead of the inaugural ceremony, establishing its credibility within Nigeria's national media landscape.</div></div></div>
+        <div class="news-card"><div class="news-img" style="background:linear-gradient(135deg,#102040,#0A1628)"><span class="news-cat">Partnership</span><span style="font-size:3rem">🤝</span></div><div class="news-body"><div class="news-date">October 2025</div><div class="news-title">Strategic Partnership Proposals Submitted to Leading Nigerian Institutions</div><div class="news-excerpt">The Capital Health Awards Academy has engaged several of Nigeria's leading financial and corporate institutions with formal partnership proposals for the 2026 edition.</div></div></div>
+        <div class="news-card" style="border:2px dashed #E5EAF0;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;text-align:center;padding:2rem"><div style="font-size:3rem;margin-bottom:1rem;color:#E5EAF0">+</div><div style="font-size:14px;color:var(--gray);max-width:200px">Press releases and announcements will appear here</div></div>
+      </div>
+
+      <!-- Video -->
+      <div style="margin-top:5rem">
+        <div class="section-tag">Video & Highlights</div>
+        <h2 class="section-title">Watch Our Highlights</h2>
+        <div class="video-grid">
+          <div class="video-card"><div class="video-thumb"><div class="video-play">▶</div></div><div class="video-label"><div class="video-title">Inaugural Awards Ceremony 2025</div><div class="video-meta">December 2025 · Full Highlight Reel</div></div></div>
+          <div class="video-card"><div class="video-thumb"><div class="video-play">▶</div></div><div class="video-label"><div class="video-title">The Health Show — Programme Overview</div><div class="video-meta">NTA News 24 · Weekly Broadcast</div></div></div>
+          <div class="video-card" style="border:2px dashed #E5EAF0"><div class="video-thumb" style="background:#F5F8FC;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px"><div style="font-size:2rem;color:#D1D5DB">📹</div><div style="font-size:12px;color:#9CA3AF">Add video here</div></div><div class="video-label"><div class="video-title" style="color:#9CA3AF">Placeholder — replace with your reel</div></div></div>
+        </div>
+        <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:2rem;margin-top:2rem">
+          <h3 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:0.75rem">📹 How to Add Your Videos</h3>
+          <p style="font-size:14px;color:var(--gray);line-height:1.8;margin-bottom:1rem">When you deploy this site to Vercel, adding videos is simple. Upload your video to <strong>YouTube</strong> or <strong>Vimeo</strong>, then in the code find the video card section and replace the placeholder with:<br><code style="background:#F5F8FC;padding:4px 8px;border-radius:4px;font-size:12px">&lt;iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" ...&gt;</code></p>
+          <p style="font-size:13px;color:var(--gray)">Alternatively, place your video files in the <code style="background:#F5F8FC;padding:2px 6px;border-radius:4px;font-size:12px">/public/videos/</code> folder and link them with a standard HTML5 video tag. I'll walk you through this step by step when you're ready.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: CONTACT -->
+<!-- ══════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="about-hero">
+    <div class="section-inner" style="padding-top:4rem;padding-bottom:4rem;position:relative;z-index:2">
+      <div class="section-tag" style="color:var(--gold)">Get in Touch</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:var(--white);line-height:1.2;margin-bottom:1.5rem">Contact the Academy</h1>
+    </div>
+  </div>
+  <div class="section section-white">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label">Office Address</div><div class="contact-val">Suite C11, Kenuj O2 Mall<br>Kaura District, Abuja, Nigeria</div></div></div>
+          <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-val">+234 816 168 2676</div></div></div>
+          <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-label">Email</div><div class="contact-val">info@capitalhealthawards.ng<br>partnerships@capitalhealthawards.ng</div></div></div>
+          <div class="contact-item"><div class="contact-icon">📺</div><div><div class="contact-label">The Health Show</div><div class="contact-val">NTA News 24 · Every Saturday<br>Also on DSTV, GOtv, Startimes</div></div></div>
+          <div>
+            <div class="contact-label" style="color:var(--gold);font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;margin-bottom:0.75rem">Follow Us</div>
+            <div class="social-links">
+              <a class="social-btn" style="font-size:14px;color:var(--gray);text-decoration:none">in</a>
+              <a class="social-btn" style="font-size:14px;color:var(--gray);text-decoration:none">𝕏</a>
+              <a class="social-btn" style="font-size:14px;color:var(--gray);text-decoration:none">f</a>
+              <a class="social-btn" style="font-size:14px;color:var(--gray);text-decoration:none">📸</a>
+            </div>
+          </div>
+        </div>
+        <div class="nom-form" style="margin:0">
+          <h3 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;margin-bottom:1.5rem">Send Us a Message</h3>
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label">Full Name *</label><input type="text" class="form-input" placeholder="Your name"></div>
+            <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="your@email.com"></div>
+            <div class="form-group"><label class="form-label">Subject</label><select class="form-select"><option>General Enquiry</option><option>Partnership / Sponsorship</option><option>Media / Press</option><option>Nomination Query</option><option>Committee Interest</option></select></div>
+            <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" placeholder="+234..."></div>
+            <div class="form-group full"><label class="form-label">Message *</label><textarea class="form-textarea" placeholder="Tell us how we can help..."></textarea></div>
+          </div>
+          <div style="margin-top:1.5rem"><button class="btn-primary" style="width:100%" onclick="submitContact()">Send Message</button></div>
+          <div class="success-alert" id="contact-success">✅ Message sent! We'll respond within 2 business days.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem">
+          <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold3));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px">🏆</div>
+          <div style="color:var(--white);font-family:'Playfair Display',serif;font-size:14px;font-weight:600">The Capital Health Awards Academy</div>
+        </div>
+        <p>Nigeria's foremost platform for recognising excellence, integrity, and innovation within the healthcare sector.</p>
+        <div style="width:40px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:1rem"></div>
+      </div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a onclick="showPage('about')">About Us</a></li><li><a onclick="showPage('categories')">Award Categories</a></li><li><a onclick="showPage('committee')">Committee</a></li><li><a onclick="showPage('process')">Selection Process</a></li></ul></div>
+      <div class="footer-col"><h4>Participate</h4><ul class="footer-links"><li><a onclick="showPage('nominate')">Nominate</a></li><li><a onclick="showPage('event')">2026 Ceremony</a></li><li><a onclick="showPage('partners')">Sponsorship</a></li><li><a onclick="showPage('media')">News & Media</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="footer-links"><li><a>Suite C11, Kenuj O2 Mall</a></li><li><a>Kaura District, Abuja</a></li><li><a>+234 816 168 2676</a></li><li><a onclick="showPage('contact')">Contact Form</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 The Capital Health Awards Academy. All rights reserved.</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.2)">Powered by The Health Show · NTA News 24</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById('page-'+id);
+  if(pg) { pg.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+}
+
+function submitNom() {
+  const s = document.getElementById('nom-success');
+  s.style.display = 'block';
+  setTimeout(() => s.style.display='none', 6000);
+}
+
+function submitContact() {
+  const s = document.getElementById('contact-success');
+  s.style.display = 'block';
+  setTimeout(() => s.style.display='none', 5000);
+}
+
+// Countdown to Dec 3 2026
+function updateCountdown() {
+  const target = new Date('2026-12-03T19:00:00+01:00');
+  const now = new Date();
+  const diff = target - now;
+  if(diff < 0) return;
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById('cd-days').textContent = d;
+  document.getElementById('cd-hrs').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-min').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-sec').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Smooth scroll on anchor-style nav
+document.querySelectorAll('.footer-links a, .nav-links a').forEach(a => {
+  a.style.cursor = 'pointer';
+});
+</script>
+</body>
+</html>
